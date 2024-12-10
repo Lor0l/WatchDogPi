@@ -1,0 +1,31 @@
+services:
+  rabbitmq:
+    image: rabbitmq:3.11-management
+    hostname: rabbitmq
+    ports:
+      - "15672:15672"
+      - "5672:5672"     # AMQP
+    environment:
+      RABBITMQ_DEFAULT_USER: pi
+      RABBITMQ_DEFAULT_PASS: pw
+    networks:
+      - server-nw
+
+  consumer:
+    image: watchdogserver:bot-enabled
+    container_name: consumer
+    networks:
+      - server-nw
+    depends_on:
+      - rabbitmq
+    volumes:
+      - /home/ole/storage:/app/storage
+    environment:
+      - PYTHONUNBUFFERED=1
+    entrypoint: /bin/sh -c "sleep 10 && python /app/receive_and_process_img.py"
+
+
+networks:
+  server-nw:
+    name: server-nw
+    driver: bridge

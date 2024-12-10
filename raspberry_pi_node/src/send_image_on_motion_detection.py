@@ -9,11 +9,11 @@ except ImportError:
 
 
 # replace with own rabbitmq parameters
-RMQ_USER = 'user'
-RMQ_PASSWORD = 'password'
-RMQ_HOST = 'host'
+RMQ_USER = 'pi'
+RMQ_PASSWORD = 'pw'
+RMQ_HOST = 'host_ip'
 RMQ_PORT = 5672
-RMQ_QUEUE = 'queue'
+RMQ_QUEUE = 'images'
 
 # parameters for the motion detection algorithm
 DELTA_THRESH = 25
@@ -50,6 +50,7 @@ def detect_motion(last_img, current_img):
     for contour in contours:
         if cv2.contourArea(contour) > MIN_AREA:
             motion = True
+
     return motion
 
 def connect_to_message_broker():

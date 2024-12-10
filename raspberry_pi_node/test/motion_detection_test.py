@@ -20,3 +20,9 @@ class ConverterTests(unittest.TestCase):
         motion_detected = detect_motion(img1, img2)
 
         assert motion_detected == False
+
+
+    def test_test(self):
+        BOT = 'mybot'
+        TEST = f'test/{BOT}/.de'
+        print(TEST)
